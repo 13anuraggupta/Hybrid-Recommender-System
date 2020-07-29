@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+	<title>Blank</title>
+	<style>
+	#loader{transition:all .3s ease-in-out;opacity:1;visibility:visible;position:fixed;height:100vh;width:100%;background:#fff;z-index:90000}#loader.fadeOut{opacity:0;visibility:hidden}.spinner{width:40px;height:40px;position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);background-color:#333;border-radius:100%;-webkit-animation:sk-scaleout 1s infinite ease-in-out;animation:sk-scaleout 1s infinite ease-in-out}@-webkit-keyframes sk-scaleout{0%{-webkit-transform:scale(0)}100%{-webkit-transform:scale(1);opacity:0}}@keyframes sk-scaleout{0%{-webkit-transform:scale(0);transform:scale(0)}100%{-webkit-transform:scale(1);transform:scale(1);opacity:0}}
+</style>
+<link href="./static/style.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body class="app">
+	<div id="loader">
+		<div class="spinner">
+		</div>
+	</div>
+	<script>window.addEventListener('load', function load() {
+		const loader = document.getElementById('loader');
+		setTimeout(function() {
+			loader.classList.add('fadeOut');
+		}, 300);
+	});</script>
+	<div>
+		<div class="sidebar">
+			<div class="sidebar-inner">
+				<div class="sidebar-logo">
+					<div class="peers ai-c fxw-nw">
+						<div class="peer peer-greed">
+							<a class="sidebar-link td-n" href="index.html">
+								<div class="peers ai-c fxw-nw">
+									<div class="peer">
+										<div class="logo">
+											<img src="./static/assets/static/images/logo.png" alt="">
+										</div>
+									</div>
+									<div class="peer peer-greed">
+										<h5 class="lh-1 mB-0 logo-text">DataR Labs</h5>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="peer">
+							<div class="mobile-toggle sidebar-toggle">
+								<a href="" class="td-n">
+									<i class="ti-arrow-circle-left">
+									</i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="sidebar-menu scrollable pos-r">
+					<li class="nav-item mT-30 actived">
+						<a class="sidebar-link" href="#">
+							<span class="icon-holder">
+								<i class="c-blue-500 ti-home">
+								</i>
+							</span>
+							<span class="title">Dashboard</span>
+						</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<div class="page-container">
+			<div class="header navbar">
+				<div class="header-container">
+					<ul class="nav-left">
+						<li>
+							<a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);">
+								<i class="ti-menu">
+								</i>
+							</a>
+						</li>
+					</ul>
+					
+				</div>
+			</div>
+			<main class="main-content bgc-grey-100">
+				<div id="mainContent">
+					<!-- <div class="full-container"> -->
+
+						<div class="row gap-20 masonry pos-r">
+							<div class="masonry-sizer col-md-6">
+							</div>
+							<div class="masonry-item col-md-6">
+								<div class="bgc-white p-20 bd">
+									<h6 class="c-grey-900">Select Data</h6>
+									<div class="mT-30">
+										<form action="{{ url_for('predict')}}"method="post">
+											<div class="form-group">
+												<label for="dropdownData">Select a customer</label>
+												<select id="dropdownData" name="dropdownData" class="form-control">
+													<option selected="selected">Select...</option>
+													<option>...</option>
+												</select>
+											</div>
+											
+											<button type="submit" class="btn btn-primary form-control">Submit</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row gap-20 masonry pos-r">
+							<div class="masonry-item col-md-12">
+
+
+								
+								<div class="bgc-white bd bdrs-3 p-20 mB-20">
+									<h4 class="c-grey-900 mB-20">{{ prediction_text }}</h4>
+
+									{% for table in tables %}
+									{{titles[loop.index]}}
+									{{ table|safe }}
+									{% endfor %}
+									
+								</div>
+
+							</div>
+						</div>
+
+						<!-- </div> -->
+					</div>
+				</main>
+				<footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
+					<span>Copyright © 2020 Designed by <a href="https://github.com/atishagrawal" target="_blank" title="Atish Agrawal">Atish Agrawal</a>. All rights reserved.</span>
+				</footer>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+		<script type="text/javascript" src="./static/vendor.js"></script>
+		<script type="text/javascript" src="./static/bundle.js"></script>
+
+		<script type="text/javascript">
+			$( document ).ready(function() {
+				$.getJSON("./static/css/data.json", function(json){
+					$('#dropdownData').empty();
+					$('#dropdownData').append($('<option>').text("Select"));
+					$.each(json, function(i, obj){
+						$('#dropdownData').append($('<option>').text(obj).attr('value', obj));
+					});
+				});
+				$('.data').DataTable();
+			});
+
+
+			
+
+		</script>
+
+	</body>
+	</html>

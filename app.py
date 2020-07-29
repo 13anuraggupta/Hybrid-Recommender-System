@@ -173,7 +173,7 @@ def get_recommendation(userID) :
 
 @app.route('/')
 def home():
-	return render_template('index.html')
+	return render_template('blank.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -183,7 +183,7 @@ def predict():
 	items_df.reset_index(inplace=True)
 	items_df.drop(columns='index',axis=1,inplace=True)
 	item = list(items_df['Items'].values)
-	return render_template('index.html',  tables=[items_df.to_html(classes='data')], titles=items_df.columns.values)
+	return render_template('blank.html',  tables=[items_df.to_html(classes='data table table-striped table-bordered')], titles=items_df.columns.values)
 
 if __name__ == '__main__':
  	app.run(debug=True)
