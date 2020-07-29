@@ -112,12 +112,28 @@
 								
 								<div class="bgc-white bd bdrs-3 p-20 mB-20">
 									<h4 class="c-grey-900 mB-20">{{ prediction_text }}</h4>
+									<table id="dataTablePredict" name="dataTablePredict" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>S.No</th>
+												<th>Items</th>
+												<th>Confidence</th>
+												<th>Score</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>S.No</th>
+												<th>Items</th>
+												<th>Confidence</th>
+												<th>Score</th>
+											</tr>
+										</tfoot>
+										<tbody>
 
-									{% for table in tables %}
-									{{titles[loop.index]}}
-									{{ table|safe }}
-									{% endfor %}
-									
+										</tbody>
+									</table>
+
 								</div>
 
 							</div>
@@ -147,7 +163,24 @@
 						$('#dropdownData').append($('<option>').text(obj).attr('value', obj));
 					});
 				});
-				$('.data').DataTable();
+
+
+				{% if json_data:   %}
+
+				var jsonData=JSON.parse('{{json_data | safe }}');
+
+				$('#dataTablePredict').DataTable({
+					data:jsonData.data,
+					columns:[
+					{data: "index"},
+					{data: "Items"},
+					{data: "Confidence"},
+					{data: "Score"},
+					]
+				});
+				{% endif %}
+
+				
 			});
 
 

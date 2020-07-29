@@ -182,8 +182,9 @@ def predict():
 	items_df = get_recommendation(user[0])
 	items_df.reset_index(inplace=True)
 	items_df.drop(columns='index',axis=1,inplace=True)
-	item = list(items_df['Items'].values)
-	return render_template('blank.html',  tables=[items_df.to_html(classes='data table table-striped table-bordered')], titles=items_df.columns.values)
+
+	json_data=items_df.to_json(orient='table')
+	return render_template('blank.html', json_data=json_data)
 
 if __name__ == '__main__':
  	app.run(debug=True)
