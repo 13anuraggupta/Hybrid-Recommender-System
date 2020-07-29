@@ -24,10 +24,9 @@
     <br>
     <br>
 
-
     <script type="text/javascript">
       $( document ).ready(function() {
-        $.getJSON("https://api.jsonbin.io/b/5ee9ab74ccc9877ac37d4c1b", function(json){
+        $.getJSON("./static/data.json", function(json){
           $('#dropdownData').empty();
           $('#dropdownData').append($('<option>').text("Select"));
           $.each(json, function(i, obj){
@@ -36,7 +35,6 @@
           });
         });
       });
-
 
     </script>
 
