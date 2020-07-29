@@ -44,13 +44,10 @@
 
   <br>
   <br>
-  {{ prediction_text }}
-  <br>
-  {{ recommended_item1 }}
-  <br>
-  {{ recommended_item2 }}
-  <br>
-  {{ recommended_item3 }}
+  {% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+  {% endfor %}
 
 </div>
 

@@ -180,13 +180,10 @@ def predict():
 
 	user = [x for x in request.form.values()]
 	items_df = get_recommendation(user[0])
+	items_df.reset_index(inplace=True)
+	items_df.drop(columns='index',axis=1,inplace=True)
 	item = list(items_df['Items'].values)
-	return render_template('index.html',
-    	prediction_text='Recommended Items for User : {} '.format(str(user[0])),
-    	recommended_item1='First Recommended Item : {} '.format(item[0]),
-    	recommended_item2='Second Recommended Item : {} '.format(item[1]),
-    	recommended_item3='Third Recommended Item : {} '.format(item[2]),
-    	)
+	return render_template('index.html',  tables=[items_df.to_html(classes='data')], titles=items_df.columns.values)
 
 if __name__ == '__main__':
  	app.run(debug=True)
